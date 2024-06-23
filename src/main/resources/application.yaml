@@ -1,0 +1,24 @@
+spring:
+  jmx:
+    enabled: true
+
+  application:
+    name: scm
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/scm
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Thakur@7
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
