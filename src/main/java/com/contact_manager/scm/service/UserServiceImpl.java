@@ -20,9 +20,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users saveUser(Users user) {
-
+        log.info("Saving user: {}", user);
         String userId = UUID.randomUUID().toString();
         user.setId(userId);
+        log.info("User saved successfully.");
         return userRepo.save(user);
     }
 
