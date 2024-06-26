@@ -1,11 +1,13 @@
 package com.contact_manager.scm.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -14,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(name = "user_details") // Ensure this table name matches your database schema
-public class Users {
+public class Users implements UserDetails {
     @Id
     private String id;
 
@@ -37,6 +39,7 @@ public class Users {
     private String profilePic;
 
     @Column(name = "enabled")
+    @Getter(AccessLevel.NONE)
     private boolean enabled = false;
 
     @Column(name = "email_verified")
@@ -53,4 +56,34 @@ public class Users {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Contacts> contacts = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.enabled = true;
+    }
 }

@@ -5,6 +5,7 @@ import com.contact_manager.scm.exceptionHandling.ResourceNotFoundException;
 import com.contact_manager.scm.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +19,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Users saveUser(Users user) {
         log.info("Saving user: {}", user);
         String userId = UUID.randomUUID().toString();
         user.setId(userId);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         log.info("User saved successfully.");
         return userRepo.save(user);
     }
