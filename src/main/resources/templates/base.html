@@ -19,7 +19,14 @@
 </head>
 <body class="dark:bg-gray-900 dark:text-white">
 <!--common header-->
-<div th:replace="~{navbar :: navbar}"></div>
+<div th:if="${user}">
+    <div th:replace="~{user/user_navbar :: user-navbar}"></div>
+</div>
+
+<div th:unless="${user}">
+    <div th:replace="~{navbar :: navbar}"></div>
+</div>
+
 <!--main content-->
 <div class="p-4">
     <section data-th-replace="${content}"></section>

@@ -89,4 +89,11 @@ public class UserServiceImpl implements UserService {
     public List<Users> getAllUsers() {
         return List.of();
     }
+
+    @Override
+    public Users getUserByEmail(String email) {
+        Users user = userRepo.findByEmail(email)
+                .orElse(null);
+        return user;
+    }
 }

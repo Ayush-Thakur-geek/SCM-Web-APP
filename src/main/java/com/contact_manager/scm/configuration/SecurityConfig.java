@@ -17,6 +17,9 @@ public class SecurityConfig {
     @Autowired
     private SecurityCustomUserDetailService userDetailService;
 
+    @Autowired
+    private OAuthAuthenticationSuccessHandler handler;
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -34,8 +37,8 @@ public class SecurityConfig {
         httpSecurity.csrf((csrf) -> csrf.disable())
                 .oauth2Login(oauth -> {
                     oauth.loginPage("/login")
-                            .defaultSuccessUrl("/user/dashboard");
-                    oauth.successHandler(null);
+                            .defaultSuccessUrl("/user/dashboard")
+                            .successHandler(handler);
                 })
                 .formLogin((formLogin) -> {
             formLogin.loginPage("/login")

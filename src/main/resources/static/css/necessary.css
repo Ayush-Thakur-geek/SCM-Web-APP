@@ -10,3 +10,13 @@
     width: 3rem !important;
     height: 3rem !important;
 }
+
+#profile-pic {
+    border-radius: 50%;
+}
+
+#profile-pic img {
+    width: 3rem !important;
+    height: 3rem !important;
+    object-fit: cover !important;
+}
