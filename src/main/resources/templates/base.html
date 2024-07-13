@@ -31,6 +31,11 @@
 <div class="p-4">
     <section data-th-replace="${content}"></section>
 </div>
+
+<div th:if="${user}">
+    <div th:replace="~{user/sideBar :: sidebar}"></div>
+</div>
+
 <!--common footer-->
 <footer class="p-4">A new project</footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

@@ -40,6 +40,10 @@ public class Contacts {
     @Column(name = "favourite")
     private boolean favourite = false;
 
+    private String instagram;
+
+    private String linkedin;
+
     @ManyToOne
     private Users user;
 

@@ -34,13 +34,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<Users> getUserById(String id) {
-        return userRepo.findById(Long.valueOf(id));
+        return userRepo.findById(id);
     }
 
     @Override
     public Optional<Users> updateUser(Users user) {
         log.info("Updating user: {}", user);
-        Users updatedUser = userRepo.findById(Long.valueOf(user.getId()))
+        Users updatedUser = userRepo.findById(user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No such user found."));
         updatedUser.builder()
                 .name(user.getName())
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(String id) {
         log.info("Deleting user with id: {}", id);
-        Users user = userRepo.findById(Long.valueOf(id))
+        Users user = userRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No such user found."));
         userRepo.delete(user);
         log.info("User deleted successfully.");
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isUserExist(String id) {
-        Users user = userRepo.findById(Long.valueOf(id))
+        Users user = userRepo.findById(id)
                 .orElse(null);
 
         return user != null;

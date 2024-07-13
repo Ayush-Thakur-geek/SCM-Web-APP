@@ -1,0 +1,62 @@
+package com.contact_manager.scm.service;
+
+import com.contact_manager.scm.entity.Contacts;
+import com.contact_manager.scm.exceptionHandling.ResourceNotFoundException;
+import com.contact_manager.scm.repository.ContactRepository;
+import com.contact_manager.scm.repository.UserRepository;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+
+@Service
+@Log4j2
+public class ContactServiceImpl implements ContactService{
+
+    @Autowired
+    ContactRepository contactRepo;
+
+    @Autowired
+    UserRepository userRepo;
+
+    @Override
+    public Contacts saveContact(Contacts contact) {
+        log.info("ContactServiceImpl: saveContact");
+        contact.setId(UUID.randomUUID().toString());
+        log.info("Contact saved");
+        return contactRepo.save(contact);
+    }
+
+    @Override
+    public Contacts update(Contacts contact) {
+        return null;
+    }
+
+    @Override
+    public List<Contacts> getAll() {
+        return contactRepo.findAll();
+    }
+
+    @Override
+    public Contacts getContactById(String id) {
+        return contactRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Contact not found"));
+    }
+
+    @Override
+    public void deleteContact(String id) {
+        var contact = contactRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Contact not found"));
+        contactRepo.delete(contact);
+    }
+
+    @Override
+    public List<Contacts> search(String name, String email, String pNo) {
+        return List.of();
+    }
+
+    @Override
+    public List<Contacts> getByUserId(String userId) {
+        return contactRepo.findByUserId(userId);
+    }
+}

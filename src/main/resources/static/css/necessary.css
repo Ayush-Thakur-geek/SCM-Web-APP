@@ -20,3 +20,17 @@
     height: 3rem !important;
     object-fit: cover !important;
 }
+
+.mainContent {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+}
+
+@media (min-width: 640px) {
+    .mainContent {
+        padding-left: 250px;
+    }
+}
