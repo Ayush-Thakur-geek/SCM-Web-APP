@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/user/contact")
 @Log4j2
@@ -57,8 +59,8 @@ public class ContactController {
 
         log.info("file info: {}", cf.getContactImg().getOriginalFilename());
         System.out.println("file info: " + cf.getContactImg().getOriginalFilename());
-
-        String fileURL = imageService.uploadImg(cf.getContactImg());
+        String ImageFileName = UUID.randomUUID().toString();
+        String fileURL = imageService.uploadImg(cf.getContactImg(), ImageFileName);
 
         Contacts contact = Contacts.builder()
                 .name(cf.getName())
@@ -70,6 +72,7 @@ public class ContactController {
                 .instagram(cf.getInstaLink())
                 .linkedin(cf.getLinkedinLink())
                 .profilePic(fileURL)
+                .cloudinaryImagePublicId(ImageFileName)
                 .user(user)
                 .build();
 
@@ -80,7 +83,7 @@ public class ContactController {
                 .build();
 
         session.setAttribute("message", message);
-//        contactService.saveContact(contact);
+        contactService.saveContact(contact);
         return "redirect:/user/contact/add";
     }
 }

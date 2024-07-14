@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html lang="en" th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{:: script})}">
-<head>
-    <meta charset="UTF-8">
+<!doctype html>
+<html
+  lang="en"
+  th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{:: script})}"
+>
+  <head>
+    <meta charset="UTF-8" />
     <title data-th-text="${user.name}">Profile Page</title>
-</head>
-<body>
-<div id="content" class="mainContent">
-    <h1>Profile page</h1>
-    <p th:text="${user.name}"></p>
-    <p th:text="${user.email}"></p>
-</div>
-<script>
-    console.log("This is a profile page")
-</script>
-</body>
+  </head>
+  <body>
+    <div id="content" class="mainContent">
+      <h1>Profile page</h1>
+      <p th:text="${user.name}"></p>
+      <p th:text="${user.email}"></p>
+    </div>
+    <script>
+      console.log("This is a profile page");
+    </script>
+  </body>
 </html>

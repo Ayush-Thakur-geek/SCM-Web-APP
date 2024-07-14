@@ -44,6 +44,9 @@ public class Contacts {
 
     private String linkedin;
 
+    @Column(name = "cloudinary_image_public_id")
+    private String cloudinaryImagePublicId;
+
     @ManyToOne
     private Users user;
 
