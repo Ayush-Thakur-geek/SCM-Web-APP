@@ -1,11 +1,15 @@
 package com.contact_manager.scm.service;
 
 import com.contact_manager.scm.entity.Contacts;
+import com.contact_manager.scm.entity.Users;
 import com.contact_manager.scm.exceptionHandling.ResourceNotFoundException;
 import com.contact_manager.scm.repository.ContactRepository;
 import com.contact_manager.scm.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,5 +62,14 @@ public class ContactServiceImpl implements ContactService{
     @Override
     public List<Contacts> getByUserId(String userId) {
         return contactRepo.findByUserId(userId);
+    }
+
+    @Override
+    public Page<Contacts> getByUser(Users user, int page, int size, String sortBy, String direction) {
+
+        Sort sort = direction.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        var pageable = PageRequest.of(page, size, sort);
+        return contactRepo.findByUser(user, pageable);
     }
 }

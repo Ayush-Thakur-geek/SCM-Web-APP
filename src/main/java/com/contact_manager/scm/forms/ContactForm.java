@@ -1,5 +1,6 @@
 package com.contact_manager.scm.forms;
 
+import com.contact_manager.scm.validators.ValidFile;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
@@ -30,5 +31,6 @@ public class ContactForm {
 //    @Pattern(regexp = "^(http|https)://(www.)?linkedin.com/[a-zA-Z0-9_.]+$", message = "Invalid LinkedIn link" )
     private String linkedinLink;
 
+    @ValidFile(message = "Invalid File")
     private MultipartFile contactImg;
 }

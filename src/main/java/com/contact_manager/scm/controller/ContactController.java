@@ -14,15 +14,14 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -85,6 +84,21 @@ public class ContactController {
         session.setAttribute("message", message);
         contactService.saveContact(contact);
         return "redirect:/user/contact/add";
+    }
+    @GetMapping("/view")
+    public String viewContacts(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction,
+            Model model,
+            Authentication authentication
+    ) {
+        String username = Fetch.getEmailOfLoggedInUser(authentication);
+        Users user = userService.getUserByEmail(username);
+        Page<Contacts> pageContacts = contactService.getByUser(user, page, size, sortBy, direction);
+        model.addAttribute("pageContacts", pageContacts);
+        return "user/contacts";
     }
 }
 
