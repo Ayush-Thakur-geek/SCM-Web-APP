@@ -55,8 +55,24 @@ public class ContactServiceImpl implements ContactService{
     }
 
     @Override
-    public List<Contacts> search(String name, String email, String pNo) {
-        return List.of();
+    public Page<Contacts> searchByName(String name, int size, int page, String sortBy, String order, Users user) {
+        Sort sort = order.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        var pageable = PageRequest.of(page, size, sort);
+        return contactRepo.findByUserAndNameContaining(user, name, pageable);
+    }
+
+    @Override
+    public Page<Contacts> searchByPhone(String p_no, int size, int page, String sortBy, String order, Users user) {
+        Sort sort = order.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        var pageable = PageRequest.of(page, size, sort);
+        return contactRepo.findByUserAndPhoneNoContaining(user, p_no, pageable);
+    }
+
+    @Override
+    public Page<Contacts> searchByEmail(String email, int size, int page, String sortBy, String order, Users user) {
+        Sort sort = order.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        var pageable = PageRequest.of(page, size, sort);
+        return contactRepo.findByUserAndEmailContaining(user, email, pageable);
     }
 
     @Override

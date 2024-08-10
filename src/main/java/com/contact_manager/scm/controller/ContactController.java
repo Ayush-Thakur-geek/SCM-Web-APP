@@ -98,7 +98,33 @@ public class ContactController {
         Users user = userService.getUserByEmail(username);
         Page<Contacts> pageContacts = contactService.getByUser(user, page, size, sortBy, direction);
         model.addAttribute("pageContacts", pageContacts);
+        model.addAttribute("pageSize", "10");
         return "user/contacts";
     }
-}
 
+    @GetMapping("/search")
+    public String searchHandler(
+            @RequestParam("field") String field,
+            @RequestParam("keyword") String value,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction,
+            Model model,
+            Authentication authentication
+    ) {
+        log.info("field: {} keyword: {}", field, value);
+        Page<Contacts> pageContact = null;
+        var user = userService.getUserByEmail(Fetch.getEmailOfLoggedInUser(authentication));
+        if (field.equals("name")) {
+            pageContact = contactService.searchByName(value, size, page, sortBy, direction, user);
+        } else if (field.equalsIgnoreCase("phone_no")) {
+            pageContact = contactService.searchByPhone(value, size, page, sortBy, direction, user);
+        } else if (field.equalsIgnoreCase("email")) {
+            pageContact = contactService.searchByEmail(value, size, page, sortBy, direction, user);
+        }
+        log.info("pageContact: {}", pageContact);
+        model.addAttribute("pageContacts", pageContact);
+        return "user/search";
+    }
+}

@@ -17,7 +17,11 @@ public interface ContactService {
 
     void deleteContact(String id);
 
-    List<Contacts> search(String name, String email, String pNo);
+    Page<Contacts> searchByName(String name, int size, int page, String sortBy, String order, Users user);
+
+    Page<Contacts> searchByPhone(String p_no, int size, int page, String sortBy, String order, Users user);
+
+    Page<Contacts> searchByEmail(String email, int size, int page, String sortBy, String order, Users user);
 
     List<Contacts> getByUserId(String userId);
 
