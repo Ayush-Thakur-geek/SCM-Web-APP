@@ -143,12 +143,12 @@
                 </td>
                 <td class="px-6 py-4">
                   <div class="flex space-x-4">
-                    <a href="" class="p-3 border rounded"
-                      ><i class="flex items-center fa-solid fa-eye fa-xl"></i
-                    ></a>
-                    <a href="" class="flex items-center p-2 border rounded"
+                    <button onclick="loadContactData(1)" href="" class="p-3 border rounded">
+                      <i class="flex items-center fa-solid fa-eye fa-xl"></i>
+                    </button>
+                    <button class="flex items-center p-2 border rounded"
                       ><i class="fa-solid fa-user-pen fa-xl"></i
-                    ></a>
+                    ></button>
                     <a href="" class="flex items-center p-3 border rounded"
                       ><i class="fa-solid fa-trash-can fa-xl"></i
                     ></a>
@@ -199,8 +199,9 @@
           </div>
         </div>
       </div>
+      <div data-th-replace="~{user/contact_modals :: contact}"></div>
     </div>
 
-    <script></script>
+    <script data-th-src="@{'/js/contacts.js'}"></script>
   </body>
 </html>

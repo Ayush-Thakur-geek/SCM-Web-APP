@@ -1,5 +1,6 @@
 package com.contact_manager.scm.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -55,6 +56,7 @@ public class Users implements UserDetails {
     private String providerId;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Contacts> contacts = new ArrayList<>();
 
     @Override

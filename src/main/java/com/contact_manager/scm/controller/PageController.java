@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Log4j2
 public class PageController {
 
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
+    public PageController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/")
     public String index() {

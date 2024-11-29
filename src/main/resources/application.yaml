@@ -6,13 +6,14 @@ spring:
     name: scm
 
   datasource:
-    url: jdbc:mysql://localhost:3306/scm
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/scm
+    driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: Thakur@7
 
   jpa:
     hibernate:
+      dialect: org.hibernate.dialect.MariaDBDialect
       ddl-auto: update
     generate-ddl: true
     show-sql: true
@@ -26,15 +27,15 @@ spring:
         registration:
           google:
             client-name: google
-            client-id: ${GOOGLE_CLIENT_ID}
-            client-secret: ${GOOGLE_CLIENT_SECRET}
+            client-id: 385859815128-lj3o9tk8rn41hk58o9p13bjagl160t0f.apps.googleusercontent.com
+            client-secret: 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
             scope:
               - email
               - profile
           github:
             client-name: github
-            client-id: ${GITHUB_CLIENT_ID}
-            client-secret: ${GITHUB_CLIENT_SECRET}
+            client-id: Iv23lizkgzG2jaN0ABjh
+            client-secret: 93383008516de0d8da0ec8d8d9f573316b094240
             scope:
               - email
               - profile
@@ -44,9 +45,9 @@ spring:
       max-request-size: 10MB
 
 cloudinary:
-    cloud-name: ${CLOUDINARY_CLOUD_NAME}
-    api-key: ${CLOUDINARY_API_KEY}
-    api-secret: ${CLOUDINARY_API_SECRET}
+    cloud-name: dq6fhd4js
+    api-key: 451411893116378
+    api-secret: 4GhVlFJU9fLHXUoyBXlI_09o-VA
 
 server:
   port: 8081

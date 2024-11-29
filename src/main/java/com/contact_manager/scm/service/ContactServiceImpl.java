@@ -39,7 +39,7 @@ public class ContactServiceImpl implements ContactService{
     }
 
     @Override
-    public List<Contacts> getAll() {
+    public List<Contacts> getAll()   {
         return contactRepo.findAll();
     }
 
